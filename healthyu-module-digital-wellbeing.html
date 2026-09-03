@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HealthyU — Digital Well-being Module Mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#EEF6FC; --panel:#DCEBF7; --panel-soft:#F4FAFD; --primary:#5B8FBF; --primary-deep:#3D6690;
+    --text:#2C3E50; --text-muted:#6B85A0; --warm:#E8C9A3; --warm-deep:#C99A5F; --white:#FFFFFF; --line:#C3DBEC;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{ background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; line-height:1.6; -webkit-font-smoothing:antialiased; }
+  h1,h2,h3{ font-family:'Space Grotesk',sans-serif; font-weight:600; color:var(--text); letter-spacing:-0.01em; }
+  a{ color:inherit; text-decoration:none; }
+  img,svg{ display:block; max-width:100%; }
+  .skip-link{ position:absolute; left:-999px; top:0; background:var(--primary-deep); color:#fff; padding:10px 16px; border-radius:0 0 8px 0; z-index:100; }
+  .skip-link:focus{ left:0; }
+  a:focus-visible, button:focus-visible{ outline:3px solid var(--warm-deep); outline-offset:3px; }
+  header{ display:flex; align-items:center; justify-content:space-between; max-width:1080px; margin:0 auto; padding:28px 32px 8px; }
+  .logo{ display:flex; align-items:center; gap:10px; font-family:'Space Grotesk'; font-weight:700; font-size:1.15rem; color:var(--primary-deep); }
+  .logo .mark{ width:30px; height:30px; border-radius:50% 50% 50% 6px; background:linear-gradient(135deg,var(--primary),var(--primary-deep)); }
+  nav ul{ list-style:none; display:flex; gap:24px; }
+  nav a{ font-size:0.94rem; font-weight:500; color:var(--text-muted); }
+  nav a:hover{ color:var(--primary-deep); }
+  .lang-toggle{ display:flex; border:1.5px solid var(--line); border-radius:999px; overflow:hidden; background:var(--white); }
+  .lang-toggle button{ border:none; background:transparent; cursor:pointer; font-family:'Inter'; font-weight:600; font-size:0.82rem; padding:7px 15px; color:var(--text-muted); }
+  .lang-toggle button.active{ background:var(--primary-deep); color:#fff; }
+  @media (max-width:760px){ nav ul{ display:none; } }
+  .breadcrumb{ max-width:1080px; margin:18px auto 0; padding:0 32px; font-size:0.86rem; color:var(--text-muted); display:flex; align-items:center; gap:8px; }
+  .breadcrumb a{ color:var(--primary-deep); font-weight:500; }
+  .breadcrumb .sep{ opacity:.5; }
+  .module-hero{ max-width:1080px; margin:0 auto; padding:26px 32px 10px; display:grid; grid-template-columns:64px 1fr; gap:20px; align-items:flex-start; }
+  .module-hero .icon{ width:64px; height:64px; border-radius:16px; background:#E4F0FA; display:flex; align-items:center; justify-content:center; }
+  .module-hero h1{ font-size:clamp(1.9rem,3.6vw,2.6rem); }
+  .module-hero .meta{ margin-top:8px; font-size:0.9rem; color:var(--text-muted); display:flex; gap:14px; flex-wrap:wrap; }
+  .module-hero p.lede{ margin-top:14px; color:var(--text-muted); max-width:62ch; font-size:1.02rem; }
+  @media (max-width:620px){ .module-hero{ grid-template-columns:1fr; } }
+  .content{ max-width:1080px; margin:0 auto; padding:0 32px; }
+  .subsection{ margin-top:56px; padding-top:40px; border-top:1px solid var(--line); display:grid; grid-template-columns:1fr 0.8fr; gap:40px; align-items:start; }
+  .subsection.reverse{ grid-template-columns:0.8fr 1fr; }
+  .subsection.reverse .sub-media{ order:-1; }
+  @media (max-width:820px){ .subsection,.subsection.reverse{ grid-template-columns:1fr; } .subsection.reverse .sub-media{ order:0; } }
+  .sub-tag{ font-size:0.78rem; font-weight:600; letter-spacing:.02em; color:var(--primary-deep); background:var(--panel); display:inline-block; padding:5px 12px; border-radius:999px; margin-bottom:14px; }
+  .subsection h2{ font-size:1.5rem; margin-bottom:14px; }
+  .subsection p{ color:var(--text-muted); margin-bottom:12px; }
+  .subsection .source{ font-size:0.82rem; color:var(--text-muted); font-style:italic; margin-top:14px; }
+  .sub-media{ background:var(--panel-soft); border:1px solid var(--line); border-radius:18px; min-height:220px; display:flex; align-items:center; justify-content:center; padding:20px; }
+  .sub-media .cap{ text-align:center; }
+  .sub-media svg{ margin:0 auto 10px; }
+  .sub-media .cap-text{ font-size:0.82rem; color:var(--text-muted); }
+  .activity{ margin-top:26px; background:var(--white); border-radius:16px; padding:24px 26px; box-shadow:0 10px 26px -18px rgba(44,62,80,0.35); }
+  .activity h3{ font-size:1.05rem; display:flex; align-items:center; gap:8px; }
+  .activity h3 .dot{ width:8px; height:8px; border-radius:50%; background:var(--warm-deep); }
+  .activity p.prompt{ color:var(--text-muted); margin:10px 0 20px; font-size:0.95rem; }
+  .card-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+  @media (max-width:620px){ .card-grid{ grid-template-columns:1fr; } }
+  .idea-card{
+    background:var(--panel-soft); border:1.5px solid var(--line); border-radius:14px; padding:16px;
+    cursor:pointer; transition:border-color .15s, transform .15s;
+  }
+  .idea-card:hover{ transform:translateY(-2px); border-color:var(--primary); }
+  .idea-card.open{ border-color:var(--primary-deep); background:var(--panel); }
+  .idea-card .name{ font-weight:600; font-size:0.94rem; display:flex; justify-content:space-between; align-items:center; }
+  .idea-card .plus{ color:var(--primary-deep); font-weight:700; }
+  .idea-card .tip{ display:none; font-size:0.82rem; color:var(--text-muted); margin-top:10px; }
+  .idea-card.open .tip{ display:block; }
+  .idea-card.open .plus{ transform:rotate(45deg); display:inline-block; }
+  .module-pager{ max-width:1080px; margin:70px auto 0; padding:26px 32px 44px; border-top:1px solid var(--line); display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap; }
+  .pager-link{ display:flex; flex-direction:column; gap:4px; max-width:260px; }
+  .pager-link .label{ font-size:0.78rem; color:var(--text-muted); }
+  .pager-link .name{ font-weight:600; color:var(--primary-deep); font-family:'Space Grotesk'; }
+  .pager-link.next{ text-align:right; align-items:flex-end; }
+  footer.site{ max-width:1080px; margin:0 auto; padding:0 32px 40px; color:var(--text-muted); font-size:0.82rem; }
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to content</a>
+
+<header>
+  <div class="logo"><span class="mark" aria-hidden="true"></span> HealthyU</div>
+  <nav aria-label="Primary"><ul>
+    <li><a href="#" data-i18n="nav.modules">Modules</a></li>
+    <li><a href="#" data-i18n="nav.checkup">Check-Up</a></li>
+    <li><a href="#" data-i18n="nav.about">About</a></li>
+  </ul></nav>
+  <div class="lang-toggle" role="group" aria-label="Language selector">
+    <button type="button" data-set-lang="en" class="active">EN</button>
+    <button type="button" data-set-lang="es">ES</button>
+  </div>
+</header>
+
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="#" data-i18n="crumb.home">HealthyU</a><span class="sep">/</span>
+  <a href="#" data-i18n="crumb.modules">Modules</a><span class="sep">/</span>
+  <span data-i18n="crumb.current">Digital Well-being</span>
+</nav>
+
+<main id="main">
+  <section class="module-hero">
+    <div class="icon" aria-hidden="true">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="12" rx="2" stroke="#3D6690" stroke-width="1.6"/><path d="M9 20h6M12 16v4" stroke="#3D6690" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </div>
+    <div>
+      <h1 data-i18n="hero.title">Digital Well-being</h1>
+      <div class="meta">
+        <span data-i18n="hero.meta1">Module 5 of 5</span>
+        <span data-i18n="hero.meta2">2 subsections · 1 activity</span>
+        <span data-i18n="hero.meta3">~7 min read</span>
+      </div>
+      <p class="lede" data-i18n="hero.lede">Devices are part of how students study, connect and unwind — this module isn't about giving them up, but about noticing when screen time stops serving you.</p>
+    </div>
+  </section>
+
+  <div class="content">
+    <article class="subsection">
+      <div>
+        <span class="sub-tag" data-i18n="s1.tag">Subsection 1</span>
+        <h2 data-i18n="s1.title">Screen Time</h2>
+        <p data-i18n="s1.p1">Screens aren't inherently harmful — much of academic life now runs through them — but unstructured, reactive use (checking notifications between every task) fragments attention.</p>
+        <p data-i18n="s1.p2">Late-evening screen use, especially bright screens close to bedtime, can also delay the body's natural signal to wind down for sleep.</p>
+        <p data-i18n="s1.p3">Noticing when screen use is intentional versus a default reflex is a more useful starting point than tracking exact hours.</p>
+        <p class="source" data-i18n="s1.source">Source: institutional digital-wellbeing references (see full citations in-app).</p>
+      </div>
+      <div class="sub-media" aria-hidden="true">
+        <div class="cap">
+          <svg width="120" height="80" viewBox="0 0 120 80" fill="none">
+            <rect x="35" y="10" width="50" height="60" rx="8" fill="#F4FAFD" stroke="#C3DBEC"/>
+            <rect x="43" y="20" width="34" height="30" rx="3" fill="#E4F0FA"/>
+            <circle cx="60" cy="60" r="3" fill="#5B8FBF"/>
+          </svg>
+          <p class="cap-text" data-i18n="s1.mediacap">Illustration: intentional vs. reflexive screen use</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="subsection reverse">
+      <div>
+        <span class="sub-tag" data-i18n="s2.tag">Subsection 2</span>
+        <h2 data-i18n="s2.title">Digital Disconnection</h2>
+        <p data-i18n="s2.p1">Short, deliberate breaks from devices — during meals, before sleep, or during a walk — give attention a chance to reset without requiring a full digital detox.</p>
+        <p data-i18n="s2.p2">Small structural changes, like moving a phone out of arm's reach while studying, often do more than willpower alone.</p>
+        <p class="source" data-i18n="s2.source">Source: institutional digital-wellbeing references (see full citations in-app).</p>
+
+        <div class="activity">
+          <h3><span class="dot" aria-hidden="true"></span> <span data-i18n="s2.activity_title">Disconnection ideas</span></h3>
+          <p class="prompt" data-i18n="s2.activity_prompt">Tap a card to see a simple way to build a short disconnection moment into your day.</p>
+          <div class="card-grid" id="ideaCards">
+            <div class="idea-card" data-card="meals">
+              <div class="name"><span data-i18n="card.meals.name">Phone-free meals</span><span class="plus">+</span></div>
+              <div class="tip" data-i18n="card.meals.tip">Leave your phone in another room during at least one meal a day.</div>
+            </div>
+            <div class="idea-card" data-card="bedtime">
+              <div class="name"><span data-i18n="card.bedtime.name">Charge outside the room</span><span class="plus">+</span></div>
+              <div class="tip" data-i18n="card.bedtime.tip">Charging your phone outside the bedroom removes the temptation to scroll before sleep.</div>
+            </div>
+            <div class="idea-card" data-card="walk">
+              <div class="name"><span data-i18n="card.walk.name">One walk, no headphones</span><span class="plus">+</span></div>
+              <div class="tip" data-i18n="card.walk.tip">Try one short walk a week without music or a podcast — just noticing your surroundings.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sub-media" aria-hidden="true">
+        <div class="cap">
+          <svg width="120" height="80" viewBox="0 0 120 80" fill="none">
+            <rect x="45" y="14" width="30" height="50" rx="6" fill="#F4FAFD" stroke="#C3DBEC"/>
+            <path d="M30 60c8-10 16-14 24-6M90 60c-8-10-16-14-24-6" stroke="#E8C9A3" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          </svg>
+          <p class="cap-text" data-i18n="s2.mediacap">Illustration: stepping away from the screen</p>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <nav class="module-pager" aria-label="Module navigation">
+    <a href="mental-wellbeing.html" class="pager-link">
+      <span class="label" data-i18n="pager.prev_label">← Previous module</span>
+      <span class="name" data-i18n="pager.prev_name">Mental Well-being</span>
+    </a>
+    <a href="../index.html#checkup" class="pager-link next">
+      <span class="label" data-i18n="pager.next_label">Ready for a check-in?</span>
+      <span class="name" data-i18n="pager.next_name">Take the Check-Up →</span>
+    </a>
+  </nav>
+</main>
+
+<footer class="site" data-i18n="footer.note">HealthyU — an educational resource, not a medical service.</footer>
+
+<script>
+  const dict = {
+    en: {
+      "nav.modules":"Modules","nav.checkup":"Check-Up","nav.about":"About",
+      "crumb.home":"HealthyU","crumb.modules":"Modules","crumb.current":"Digital Well-being",
+      "hero.title":"Digital Well-being",
+      "hero.meta1":"Module 5 of 5","hero.meta2":"2 subsections · 1 activity","hero.meta3":"~7 min read",
+      "hero.lede":"Devices are part of how students study, connect and unwind — this module isn't about giving them up, but about noticing when screen time stops serving you.",
+      "s1.tag":"Subsection 1","s1.title":"Screen Time",
+      "s1.p1":"Screens aren't inherently harmful — much of academic life now runs through them — but unstructured, reactive use (checking notifications between every task) fragments attention.",
+      "s1.p2":"Late-evening screen use, especially bright screens close to bedtime, can also delay the body's natural signal to wind down for sleep.",
+      "s1.p3":"Noticing when screen use is intentional versus a default reflex is a more useful starting point than tracking exact hours.",
+      "s1.source":"Source: institutional digital-wellbeing references (see full citations in-app).",
+      "s1.mediacap":"Illustration: intentional vs. reflexive screen use",
+      "s2.tag":"Subsection 2","s2.title":"Digital Disconnection",
+      "s2.p1":"Short, deliberate breaks from devices — during meals, before sleep, or during a walk — give attention a chance to reset without requiring a full digital detox.",
+      "s2.p2":"Small structural changes, like moving a phone out of arm's reach while studying, often do more than willpower alone.",
+      "s2.source":"Source: institutional digital-wellbeing references (see full citations in-app).",
+      "s2.activity_title":"Disconnection ideas",
+      "s2.activity_prompt":"Tap a card to see a simple way to build a short disconnection moment into your day.",
+      "s2.mediacap":"Illustration: stepping away from the screen",
+      "card.meals.name":"Phone-free meals","card.meals.tip":"Leave your phone in another room during at least one meal a day.",
+      "card.bedtime.name":"Charge outside the room","card.bedtime.tip":"Charging your phone outside the bedroom removes the temptation to scroll before sleep.",
+      "card.walk.name":"One walk, no headphones","card.walk.tip":"Try one short walk a week without music or a podcast — just noticing your surroundings.",
+      "pager.prev_label":"← Previous module","pager.prev_name":"Mental Well-being",
+      "pager.next_label":"Ready for a check-in?","pager.next_name":"Take the Check-Up →",
+      "footer.note":"HealthyU — an educational resource, not a medical service."
+    },
+    es: {
+      "nav.modules":"Módulos","nav.checkup":"Autoevaluación","nav.about":"Acerca de",
+      "crumb.home":"HealthyU","crumb.modules":"Módulos","crumb.current":"Bienestar Digital",
+      "hero.title":"Bienestar Digital",
+      "hero.meta1":"Módulo 5 de 5","hero.meta2":"2 subsecciones · 1 actividad","hero.meta3":"~7 min de lectura",
+      "hero.lede":"Los dispositivos son parte de cómo los estudiantes estudian, se conectan y se relajan — este módulo no busca que los dejes, sino que notes cuándo el tiempo de pantalla deja de servirte.",
+      "s1.tag":"Subsección 1","s1.title":"Tiempo en pantalla",
+      "s1.p1":"Las pantallas no son dañinas por sí mismas — buena parte de la vida académica ya pasa por ellas — pero el uso reactivo y sin estructura (revisar notificaciones entre cada tarea) fragmenta la atención.",
+      "s1.p2":"El uso de pantallas en la noche, especialmente pantallas brillantes cerca de la hora de dormir, también puede retrasar la señal natural del cuerpo para prepararse a dormir.",
+      "s1.p3":"Notar cuándo el uso de pantallas es intencional frente a un reflejo automático es un punto de partida más útil que contar horas exactas.",
+      "s1.source":"Fuente: referencias institucionales de bienestar digital (ver citas completas en la app).",
+      "s1.mediacap":"Ilustración: uso intencional vs. reflexivo de pantallas",
+      "s2.tag":"Subsección 2","s2.title":"Desconexión digital",
+      "s2.p1":"Pausas cortas y deliberadas de los dispositivos — durante las comidas, antes de dormir o en una caminata — le dan a la atención la oportunidad de reiniciarse sin necesitar una desconexión total.",
+      "s2.p2":"Pequeños cambios estructurales, como dejar el celular fuera del alcance mientras estudias, suelen lograr más que la sola fuerza de voluntad.",
+      "s2.source":"Fuente: referencias institucionales de bienestar digital (ver citas completas en la app).",
+      "s2.activity_title":"Ideas de desconexión",
+      "s2.activity_prompt":"Toca una tarjeta para ver una forma simple de incluir un momento breve de desconexión en tu día.",
+      "s2.mediacap":"Ilustración: alejarse de la pantalla",
+      "card.meals.name":"Comidas sin celular","card.meals.tip":"Deja tu celular en otra habitación durante al menos una comida al día.",
+      "card.bedtime.name":"Cárgalo fuera del cuarto","card.bedtime.tip":"Cargar el celular fuera de la habitación elimina la tentación de revisarlo antes de dormir.",
+      "card.walk.name":"Una caminata sin audífonos","card.walk.tip":"Prueba una caminata corta a la semana sin música ni pódcast — solo prestando atención a tu entorno.",
+      "pager.prev_label":"← Módulo anterior","pager.prev_name":"Bienestar Mental",
+      "pager.next_label":"¿Listo para un chequeo?","pager.next_name":"Hacer la autoevaluación →",
+      "footer.note":"HealthyU — un recurso educativo, no un servicio médico."
+    }
+  };
+
+  let currentLang = 'en';
+  function applyLang(lang){
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    document.documentElement.dataset.lang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(el=>{
+      const key = el.getAttribute('data-i18n');
+      if(dict[lang][key]) el.textContent = dict[lang][key];
+    });
+    document.querySelectorAll('.lang-toggle button').forEach(btn=>{
+      btn.classList.toggle('active', btn.dataset.setLang === lang);
+    });
+  }
+  document.querySelectorAll('[data-set-lang]').forEach(btn=>{
+    btn.addEventListener('click', () => applyLang(btn.dataset.setLang));
+  });
+
+  document.querySelectorAll('.idea-card').forEach(card=>{
+    card.addEventListener('click', () => card.classList.toggle('open'));
+  });
+</script>
+
+</body>
+</html>

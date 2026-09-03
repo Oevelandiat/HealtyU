@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HealthyU — Physical Activity Module Mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#EEF6FC; --panel:#DCEBF7; --panel-soft:#F4FAFD; --primary:#5B8FBF; --primary-deep:#3D6690;
+    --text:#2C3E50; --text-muted:#6B85A0; --warm:#E8C9A3; --warm-deep:#C99A5F; --white:#FFFFFF; --line:#C3DBEC;
+    --good:#6FA98A; --bad:#C97C6F;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{ background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; line-height:1.6; -webkit-font-smoothing:antialiased; }
+  h1,h2,h3{ font-family:'Space Grotesk',sans-serif; font-weight:600; color:var(--text); letter-spacing:-0.01em; }
+  a{ color:inherit; text-decoration:none; }
+  img,svg{ display:block; max-width:100%; }
+  .skip-link{ position:absolute; left:-999px; top:0; background:var(--primary-deep); color:#fff; padding:10px 16px; border-radius:0 0 8px 0; z-index:100; }
+  .skip-link:focus{ left:0; }
+  a:focus-visible, button:focus-visible{ outline:3px solid var(--warm-deep); outline-offset:3px; }
+  header{ display:flex; align-items:center; justify-content:space-between; max-width:1080px; margin:0 auto; padding:28px 32px 8px; }
+  .logo{ display:flex; align-items:center; gap:10px; font-family:'Space Grotesk'; font-weight:700; font-size:1.15rem; color:var(--primary-deep); }
+  .logo .mark{ width:30px; height:30px; border-radius:50% 50% 50% 6px; background:linear-gradient(135deg,var(--primary),var(--primary-deep)); }
+  nav ul{ list-style:none; display:flex; gap:24px; }
+  nav a{ font-size:0.94rem; font-weight:500; color:var(--text-muted); }
+  nav a:hover{ color:var(--primary-deep); }
+  .lang-toggle{ display:flex; border:1.5px solid var(--line); border-radius:999px; overflow:hidden; background:var(--white); }
+  .lang-toggle button{ border:none; background:transparent; cursor:pointer; font-family:'Inter'; font-weight:600; font-size:0.82rem; padding:7px 15px; color:var(--text-muted); }
+  .lang-toggle button.active{ background:var(--primary-deep); color:#fff; }
+  @media (max-width:760px){ nav ul{ display:none; } }
+  .breadcrumb{ max-width:1080px; margin:18px auto 0; padding:0 32px; font-size:0.86rem; color:var(--text-muted); display:flex; align-items:center; gap:8px; }
+  .breadcrumb a{ color:var(--primary-deep); font-weight:500; }
+  .breadcrumb .sep{ opacity:.5; }
+  .module-hero{ max-width:1080px; margin:0 auto; padding:26px 32px 10px; display:grid; grid-template-columns:64px 1fr; gap:20px; align-items:flex-start; }
+  .module-hero .icon{ width:64px; height:64px; border-radius:16px; background:#FBF0E3; display:flex; align-items:center; justify-content:center; }
+  .module-hero h1{ font-size:clamp(1.9rem,3.6vw,2.6rem); }
+  .module-hero .meta{ margin-top:8px; font-size:0.9rem; color:var(--text-muted); display:flex; gap:14px; flex-wrap:wrap; }
+  .module-hero p.lede{ margin-top:14px; color:var(--text-muted); max-width:62ch; font-size:1.02rem; }
+  @media (max-width:620px){ .module-hero{ grid-template-columns:1fr; } }
+  .content{ max-width:1080px; margin:0 auto; padding:0 32px; }
+  .subsection{ margin-top:56px; padding-top:40px; border-top:1px solid var(--line); display:grid; grid-template-columns:1fr 0.8fr; gap:40px; align-items:start; }
+  .subsection.reverse{ grid-template-columns:0.8fr 1fr; }
+  .subsection.reverse .sub-media{ order:-1; }
+  @media (max-width:820px){ .subsection,.subsection.reverse{ grid-template-columns:1fr; } .subsection.reverse .sub-media{ order:0; } }
+  .sub-tag{ font-size:0.78rem; font-weight:600; letter-spacing:.02em; color:var(--primary-deep); background:var(--panel); display:inline-block; padding:5px 12px; border-radius:999px; margin-bottom:14px; }
+  .subsection h2{ font-size:1.5rem; margin-bottom:14px; }
+  .subsection p{ color:var(--text-muted); margin-bottom:12px; }
+  .subsection .source{ font-size:0.82rem; color:var(--text-muted); font-style:italic; margin-top:14px; }
+  .sub-media{ background:var(--panel-soft); border:1px solid var(--line); border-radius:18px; min-height:220px; display:flex; align-items:center; justify-content:center; padding:20px; }
+  .sub-media .cap{ text-align:center; }
+  .sub-media svg{ margin:0 auto 10px; }
+  .sub-media .cap-text{ font-size:0.82rem; color:var(--text-muted); }
+  .activity{ margin-top:26px; background:var(--white); border-radius:16px; padding:24px 26px; box-shadow:0 10px 26px -18px rgba(44,62,80,0.35); }
+  .activity h3{ font-size:1.05rem; display:flex; align-items:center; gap:8px; }
+  .activity h3 .dot{ width:8px; height:8px; border-radius:50%; background:var(--warm-deep); }
+  .activity p.prompt{ color:var(--text-muted); margin:10px 0 20px; font-size:0.95rem; }
+  .quiz-options{ display:flex; flex-direction:column; gap:10px; }
+  .quiz-option{
+    text-align:left; padding:13px 16px; border-radius:12px; border:1.5px solid var(--line);
+    background:var(--panel-soft); cursor:pointer; font-family:'Inter'; font-size:0.94rem; color:var(--text);
+    transition:border-color .15s, background .15s;
+  }
+  .quiz-option:hover{ border-color:var(--primary); }
+  .quiz-option.correct{ border-color:var(--good); background:#EAF3E9; }
+  .quiz-option.incorrect{ border-color:var(--bad); background:#FBEAE7; }
+  .quiz-feedback{ margin-top:16px; padding:14px 16px; border-radius:12px; font-size:0.92rem; display:none; }
+  .quiz-feedback.show{ display:block; }
+  .quiz-feedback.good{ background:#EAF3E9; color:#3F5E4C; border:1px solid #CFE4CE; }
+  .quiz-feedback.bad{ background:#FBEAE7; color:#7A3E33; border:1px solid #F1C9C0; }
+  .module-pager{ max-width:1080px; margin:70px auto 0; padding:26px 32px 44px; border-top:1px solid var(--line); display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap; }
+  .pager-link{ display:flex; flex-direction:column; gap:4px; max-width:260px; }
+  .pager-link .label{ font-size:0.78rem; color:var(--text-muted); }
+  .pager-link .name{ font-weight:600; color:var(--primary-deep); font-family:'Space Grotesk'; }
+  .pager-link.next{ text-align:right; align-items:flex-end; }
+  footer.site{ max-width:1080px; margin:0 auto; padding:0 32px 40px; color:var(--text-muted); font-size:0.82rem; }
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to content</a>
+
+<header>
+  <div class="logo"><span class="mark" aria-hidden="true"></span> HealthyU</div>
+  <nav aria-label="Primary"><ul>
+    <li><a href="#" data-i18n="nav.modules">Modules</a></li>
+    <li><a href="#" data-i18n="nav.checkup">Check-Up</a></li>
+    <li><a href="#" data-i18n="nav.about">About</a></li>
+  </ul></nav>
+  <div class="lang-toggle" role="group" aria-label="Language selector">
+    <button type="button" data-set-lang="en" class="active">EN</button>
+    <button type="button" data-set-lang="es">ES</button>
+  </div>
+</header>
+
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="#" data-i18n="crumb.home">HealthyU</a><span class="sep">/</span>
+  <a href="#" data-i18n="crumb.modules">Modules</a><span class="sep">/</span>
+  <span data-i18n="crumb.current">Physical Activity</span>
+</nav>
+
+<main id="main">
+  <section class="module-hero">
+    <div class="icon" aria-hidden="true">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="5" r="2" stroke="#3D6690" stroke-width="1.6"/><path d="M12 9v6m0 0-4 6m4-6 4 6M8 12l4 1 4-1" stroke="#3D6690" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div>
+      <h1 data-i18n="hero.title">Physical Activity</h1>
+      <div class="meta">
+        <span data-i18n="hero.meta1">Module 3 of 5</span>
+        <span data-i18n="hero.meta2">2 subsections · 1 activity</span>
+        <span data-i18n="hero.meta3">~6 min read</span>
+      </div>
+      <p class="lede" data-i18n="hero.lede">Long study sessions mean long stretches of sitting. This module looks at low-effort ways to bring movement back into a packed academic schedule.</p>
+    </div>
+  </section>
+
+  <div class="content">
+    <article class="subsection">
+      <div>
+        <span class="sub-tag" data-i18n="s1.tag">Subsection 1</span>
+        <h2 data-i18n="s1.title">Daily Movement</h2>
+        <p data-i18n="s1.p1">Extended sitting — common during exam periods — is linked to stiffness, lower energy and reduced focus, independent of formal exercise habits.</p>
+        <p data-i18n="s1.p2">Movement doesn't need a gym: walking to class instead of taking transport, or standing during phone calls, adds up over a semester.</p>
+        <p data-i18n="s1.p3">Health guidelines generally point to about 150 minutes of moderate activity a week — spread across the week, this is closer to a short daily walk than a major time commitment.</p>
+        <p class="source" data-i18n="s1.source">Source: institutional physical-activity guidelines (see full citations in-app).</p>
+      </div>
+      <div class="sub-media" aria-hidden="true">
+        <div class="cap">
+          <svg width="120" height="80" viewBox="0 0 120 80" fill="none">
+            <circle cx="30" cy="20" r="8" fill="#E4F0FA" stroke="#5B8FBF" stroke-width="2"/>
+            <path d="M30 30v20l-10 20M30 50l12 18M30 38l16-4 10 10" stroke="#3D6690" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          </svg>
+          <p class="cap-text" data-i18n="s1.mediacap">Illustration: everyday movement on campus</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="subsection reverse">
+      <div>
+        <span class="sub-tag" data-i18n="s2.tag">Subsection 2</span>
+        <h2 data-i18n="s2.title">Active Study Breaks</h2>
+        <p data-i18n="s2.p1">A short break every 45–60 minutes of focused study — even just two or three minutes of movement — helps sustain concentration for the next block.</p>
+        <p data-i18n="s2.p2">Stretching, a quick walk around the room, or a few bodyweight movements are enough; the goal is interrupting sitting, not fitting in a workout.</p>
+        <p class="source" data-i18n="s2.source">Source: institutional physical-activity guidelines (see full citations in-app).</p>
+
+        <div class="activity">
+          <h3><span class="dot" aria-hidden="true"></span> <span data-i18n="s2.activity_title">Quick quiz: spotting a good active break</span></h3>
+          <p class="prompt" data-i18n="s2.activity_prompt">Which of these best fits as an active break between two 45-minute study blocks?</p>
+          <div class="quiz-options" id="quizOptions">
+            <button class="quiz-option" data-correct="false" data-i18n="q.opt1">Scrolling social media for 10 minutes</button>
+            <button class="quiz-option" data-correct="true" data-i18n="q.opt2">A 3-minute stretch and short walk around the room</button>
+            <button class="quiz-option" data-correct="false" data-i18n="q.opt3">Starting a new episode of a show</button>
+          </div>
+          <div class="quiz-feedback" id="quizFeedback"></div>
+        </div>
+      </div>
+      <div class="sub-media" aria-hidden="true">
+        <div class="cap">
+          <svg width="120" height="80" viewBox="0 0 120 80" fill="none">
+            <rect x="30" y="14" width="60" height="52" rx="8" fill="#F4FAFD" stroke="#C3DBEC"/>
+            <path d="M50 40a10 10 0 1 1 20 0 10 10 0 0 1 -20 0Z" stroke="#5B8FBF" stroke-width="2"/>
+            <path d="M60 30v-6m0 32v6m-16-22-4-4m36 4 4-4" stroke="#E8C9A3" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+          <p class="cap-text" data-i18n="s2.mediacap">Illustration: a short movement break</p>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <nav class="module-pager" aria-label="Module navigation">
+    <a href="nutrition.html" class="pager-link">
+      <span class="label" data-i18n="pager.prev_label">← Previous module</span>
+      <span class="name" data-i18n="pager.prev_name">Nutrition</span>
+    </a>
+    <a href="mental-wellbeing.html" class="pager-link next">
+      <span class="label" data-i18n="pager.next_label">Next module</span>
+      <span class="name" data-i18n="pager.next_name">Mental Well-being →</span>
+    </a>
+  </nav>
+</main>
+
+<footer class="site" data-i18n="footer.note">HealthyU — an educational resource, not a medical service.</footer>
+
+<script>
+  const dict = {
+    en: {
+      "nav.modules":"Modules","nav.checkup":"Check-Up","nav.about":"About",
+      "crumb.home":"HealthyU","crumb.modules":"Modules","crumb.current":"Physical Activity",
+      "hero.title":"Physical Activity",
+      "hero.meta1":"Module 3 of 5","hero.meta2":"2 subsections · 1 activity","hero.meta3":"~6 min read",
+      "hero.lede":"Long study sessions mean long stretches of sitting. This module looks at low-effort ways to bring movement back into a packed academic schedule.",
+      "s1.tag":"Subsection 1","s1.title":"Daily Movement",
+      "s1.p1":"Extended sitting — common during exam periods — is linked to stiffness, lower energy and reduced focus, independent of formal exercise habits.",
+      "s1.p2":"Movement doesn't need a gym: walking to class instead of taking transport, or standing during phone calls, adds up over a semester.",
+      "s1.p3":"Health guidelines generally point to about 150 minutes of moderate activity a week — spread across the week, this is closer to a short daily walk than a major time commitment.",
+      "s1.source":"Source: institutional physical-activity guidelines (see full citations in-app).",
+      "s1.mediacap":"Illustration: everyday movement on campus",
+      "s2.tag":"Subsection 2","s2.title":"Active Study Breaks",
+      "s2.p1":"A short break every 45–60 minutes of focused study — even just two or three minutes of movement — helps sustain concentration for the next block.",
+      "s2.p2":"Stretching, a quick walk around the room, or a few bodyweight movements are enough; the goal is interrupting sitting, not fitting in a workout.",
+      "s2.source":"Source: institutional physical-activity guidelines (see full citations in-app).",
+      "s2.activity_title":"Quick quiz: spotting a good active break",
+      "s2.activity_prompt":"Which of these best fits as an active break between two 45-minute study blocks?",
+      "s2.mediacap":"Illustration: a short movement break",
+      "q.opt1":"Scrolling social media for 10 minutes",
+      "q.opt2":"A 3-minute stretch and short walk around the room",
+      "q.opt3":"Starting a new episode of a show",
+      "q.feedback_correct":"Right — brief movement resets focus without eating into your next study block.",
+      "q.feedback_incorrect":"Not quite — that's still screen time. A short stretch or walk is what actually breaks up the sitting.",
+      "pager.prev_label":"← Previous module","pager.prev_name":"Nutrition",
+      "pager.next_label":"Next module","pager.next_name":"Mental Well-being →",
+      "footer.note":"HealthyU — an educational resource, not a medical service."
+    },
+    es: {
+      "nav.modules":"Módulos","nav.checkup":"Autoevaluación","nav.about":"Acerca de",
+      "crumb.home":"HealthyU","crumb.modules":"Módulos","crumb.current":"Actividad Física",
+      "hero.title":"Actividad Física",
+      "hero.meta1":"Módulo 3 de 5","hero.meta2":"2 subsecciones · 1 actividad","hero.meta3":"~6 min de lectura",
+      "hero.lede":"Las sesiones largas de estudio significan largos periodos sentado. Este módulo explora formas de bajo esfuerzo para incluir movimiento en una agenda académica apretada.",
+      "s1.tag":"Subsección 1","s1.title":"Movimiento diario",
+      "s1.p1":"Estar sentado por periodos largos — común en épocas de exámenes — se asocia con rigidez, menor energía y menos concentración, independientemente del ejercicio formal.",
+      "s1.p2":"Moverse no requiere gimnasio: caminar a clase en vez de usar transporte, o pararse durante una llamada, suma a lo largo de un semestre.",
+      "s1.p3":"Las guías de salud suelen recomendar cerca de 150 minutos de actividad moderada por semana — repartido en la semana, esto se acerca más a una caminata corta diaria que a un gran compromiso de tiempo.",
+      "s1.source":"Fuente: guías institucionales de actividad física (ver citas completas en la app).",
+      "s1.mediacap":"Ilustración: movimiento cotidiano en el campus",
+      "s2.tag":"Subsección 2","s2.title":"Pausas activas de estudio",
+      "s2.p1":"Una pausa corta cada 45–60 minutos de estudio concentrado — incluso solo dos o tres minutos de movimiento — ayuda a sostener la concentración en el siguiente bloque.",
+      "s2.p2":"Estirarse, caminar brevemente por el cuarto o hacer unos pocos movimientos corporales bastan; el objetivo es interrumpir el sedentarismo, no hacer una rutina completa.",
+      "s2.source":"Fuente: guías institucionales de actividad física (ver citas completas en la app).",
+      "s2.activity_title":"Quiz rápido: identificar una buena pausa activa",
+      "s2.activity_prompt":"¿Cuál de estas opciones encaja mejor como pausa activa entre dos bloques de estudio de 45 minutos?",
+      "s2.mediacap":"Ilustración: una pausa breve de movimiento",
+      "q.opt1":"Ver redes sociales durante 10 minutos",
+      "q.opt2":"Un estiramiento de 3 minutos y una caminata corta por el cuarto",
+      "q.opt3":"Empezar un nuevo episodio de una serie",
+      "q.feedback_correct":"Correcto — el movimiento breve reinicia la concentración sin quitarle tiempo a tu siguiente bloque de estudio.",
+      "q.feedback_incorrect":"No exactamente — eso sigue siendo tiempo de pantalla. Un estiramiento o caminata corta es lo que realmente rompe el sedentarismo.",
+      "pager.prev_label":"← Módulo anterior","pager.prev_name":"Nutrición",
+      "pager.next_label":"Siguiente módulo","pager.next_name":"Bienestar Mental →",
+      "footer.note":"HealthyU — un recurso educativo, no un servicio médico."
+    }
+  };
+
+  let currentLang = 'en';
+  function applyLang(lang){
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    document.documentElement.dataset.lang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(el=>{
+      const key = el.getAttribute('data-i18n');
+      if(dict[lang][key]) el.textContent = dict[lang][key];
+    });
+    document.querySelectorAll('.lang-toggle button').forEach(btn=>{
+      btn.classList.toggle('active', btn.dataset.setLang === lang);
+    });
+  }
+  document.querySelectorAll('[data-set-lang]').forEach(btn=>{
+    btn.addEventListener('click', () => applyLang(btn.dataset.setLang));
+  });
+
+  const feedbackEl = document.getElementById('quizFeedback');
+  document.querySelectorAll('.quiz-option').forEach(btn=>{
+    btn.addEventListener('click', () => {
+      const correct = btn.dataset.correct === 'true';
+      document.querySelectorAll('.quiz-option').forEach(b => b.disabled = true);
+      btn.classList.add(correct ? 'correct' : 'incorrect');
+      feedbackEl.textContent = dict[currentLang][correct ? 'q.feedback_correct' : 'q.feedback_incorrect'];
+      feedbackEl.classList.add('show', correct ? 'good' : 'bad');
+    });
+  });
+</script>
+
+</body>
+</html>

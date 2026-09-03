@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HealthyU — Nutrition Module Mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#EEF6FC; --panel:#DCEBF7; --panel-soft:#F4FAFD; --primary:#5B8FBF; --primary-deep:#3D6690;
+    --text:#2C3E50; --text-muted:#6B85A0; --warm:#E8C9A3; --warm-deep:#C99A5F; --white:#FFFFFF; --line:#C3DBEC;
+    --good:#6FA98A;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{ background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; line-height:1.6; -webkit-font-smoothing:antialiased; }
+  h1,h2,h3{ font-family:'Space Grotesk',sans-serif; font-weight:600; color:var(--text); letter-spacing:-0.01em; }
+  a{ color:inherit; text-decoration:none; }
+  img,svg{ display:block; max-width:100%; }
+  .skip-link{ position:absolute; left:-999px; top:0; background:var(--primary-deep); color:#fff; padding:10px 16px; border-radius:0 0 8px 0; z-index:100; }
+  .skip-link:focus{ left:0; }
+  a:focus-visible, button:focus-visible{ outline:3px solid var(--warm-deep); outline-offset:3px; }
+  header{ display:flex; align-items:center; justify-content:space-between; max-width:1080px; margin:0 auto; padding:28px 32px 8px; }
+  .logo{ display:flex; align-items:center; gap:10px; font-family:'Space Grotesk'; font-weight:700; font-size:1.15rem; color:var(--primary-deep); }
+  .logo .mark{ width:30px; height:30px; border-radius:50% 50% 50% 6px; background:linear-gradient(135deg,var(--primary),var(--primary-deep)); }
+  nav ul{ list-style:none; display:flex; gap:24px; }
+  nav a{ font-size:0.94rem; font-weight:500; color:var(--text-muted); }
+  nav a:hover{ color:var(--primary-deep); }
+  .lang-toggle{ display:flex; border:1.5px solid var(--line); border-radius:999px; overflow:hidden; background:var(--white); }
+  .lang-toggle button{ border:none; background:transparent; cursor:pointer; font-family:'Inter'; font-weight:600; font-size:0.82rem; padding:7px 15px; color:var(--text-muted); }
+  .lang-toggle button.active{ background:var(--primary-deep); color:#fff; }
+  @media (max-width:760px){ nav ul{ display:none; } }
+  .breadcrumb{ max-width:1080px; margin:18px auto 0; padding:0 32px; font-size:0.86rem; color:var(--text-muted); display:flex; align-items:center; gap:8px; }
+  .breadcrumb a{ color:var(--primary-deep); font-weight:500; }
+  .breadcrumb .sep{ opacity:.5; }
+  .module-hero{ max-width:1080px; margin:0 auto; padding:26px 32px 10px; display:grid; grid-template-columns:64px 1fr; gap:20px; align-items:flex-start; }
+  .module-hero .icon{ width:64px; height:64px; border-radius:16px; background:#EAF3E9; display:flex; align-items:center; justify-content:center; }
+  .module-hero h1{ font-size:clamp(1.9rem,3.6vw,2.6rem); }
+  .module-hero .meta{ margin-top:8px; font-size:0.9rem; color:var(--text-muted); display:flex; gap:14px; flex-wrap:wrap; }
+  .module-hero p.lede{ margin-top:14px; color:var(--text-muted); max-width:62ch; font-size:1.02rem; }
+  @media (max-width:620px){ .module-hero{ grid-template-columns:1fr; } }
+  .content{ max-width:1080px; margin:0 auto; padding:0 32px; }
+  .subsection{ margin-top:56px; padding-top:40px; border-top:1px solid var(--line); display:grid; grid-template-columns:1fr 0.8fr; gap:40px; align-items:start; }
+  .subsection.reverse{ grid-template-columns:0.8fr 1fr; }
+  .subsection.reverse .sub-media{ order:-1; }
+  @media (max-width:820px){ .subsection,.subsection.reverse{ grid-template-columns:1fr; } .subsection.reverse .sub-media{ order:0; } }
+  .sub-tag{ font-size:0.78rem; font-weight:600; letter-spacing:.02em; color:var(--primary-deep); background:var(--panel); display:inline-block; padding:5px 12px; border-radius:999px; margin-bottom:14px; }
+  .subsection h2{ font-size:1.5rem; margin-bottom:14px; }
+  .subsection p{ color:var(--text-muted); margin-bottom:12px; }
+  .subsection .source{ font-size:0.82rem; color:var(--text-muted); font-style:italic; margin-top:14px; }
+  .sub-media{ background:var(--panel-soft); border:1px solid var(--line); border-radius:18px; min-height:220px; display:flex; align-items:center; justify-content:center; padding:20px; }
+  .sub-media .cap{ text-align:center; }
+  .sub-media svg{ margin:0 auto 10px; }
+  .sub-media .cap-text{ font-size:0.82rem; color:var(--text-muted); }
+  .activity{ margin-top:26px; background:var(--white); border-radius:16px; padding:24px 26px; box-shadow:0 10px 26px -18px rgba(44,62,80,0.35); }
+  .activity h3{ font-size:1.05rem; display:flex; align-items:center; gap:8px; }
+  .activity h3 .dot{ width:8px; height:8px; border-radius:50%; background:var(--warm-deep); }
+  .activity p.prompt{ color:var(--text-muted); margin:10px 0 20px; font-size:0.95rem; }
+  .card-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+  @media (max-width:620px){ .card-grid{ grid-template-columns:repeat(2,1fr); } }
+  .food-card{
+    background:var(--panel-soft); border:1.5px solid var(--line); border-radius:14px; padding:16px 12px;
+    cursor:pointer; text-align:center; transition:border-color .15s, transform .15s;
+  }
+  .food-card:hover{ transform:translateY(-2px); border-color:var(--primary); }
+  .food-card.open{ border-color:var(--primary-deep); background:var(--panel); }
+  .food-card .emoji{ font-size:1.8rem; margin-bottom:8px; }
+  .food-card .name{ font-weight:600; font-size:0.9rem; }
+  .food-card .tip{ display:none; font-size:0.8rem; color:var(--text-muted); margin-top:8px; text-align:left; }
+  .food-card.open .tip{ display:block; }
+  .module-pager{ max-width:1080px; margin:70px auto 0; padding:26px 32px 44px; border-top:1px solid var(--line); display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap; }
+  .pager-link{ display:flex; flex-direction:column; gap:4px; max-width:260px; }
+  .pager-link .label{ font-size:0.78rem; color:var(--text-muted); }
+  .pager-link .name{ font-weight:600; color:var(--primary-deep); font-family:'Space Grotesk'; }
+  .pager-link.next{ text-align:right; align-items:flex-end; }
+  footer.site{ max-width:1080px; margin:0 auto; padding:0 32px 40px; color:var(--text-muted); font-size:0.82rem; }
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to content</a>
+
+<header>
+  <div class="logo"><span class="mark" aria-hidden="true"></span> HealthyU</div>
+  <nav aria-label="Primary"><ul>
+    <li><a href="#" data-i18n="nav.modules">Modules</a></li>
+    <li><a href="#" data-i18n="nav.checkup">Check-Up</a></li>
+    <li><a href="#" data-i18n="nav.about">About</a></li>
+  </ul></nav>
+  <div class="lang-toggle" role="group" aria-label="Language selector">
+    <button type="button" data-set-lang="en" class="active">EN</button>
+    <button type="button" data-set-lang="es">ES</button>
+  </div>
+</header>
+
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="#" data-i18n="crumb.home">HealthyU</a><span class="sep">/</span>
+  <a href="#" data-i18n="crumb.modules">Modules</a><span class="sep">/</span>
+  <span data-i18n="crumb.current">Nutrition</span>
+</nav>
+
+<main id="main">
+  <section class="module-hero">
+    <div class="icon" aria-hidden="true">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M12 3c2 3-1 4-1 7a4 4 0 0 0 8 0c0-2-1-3-2-4" stroke="#3D6690" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 21c0-5 3-8 3-8" stroke="#3D6690" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </div>
+    <div>
+      <h1 data-i18n="hero.title">Nutrition</h1>
+      <div class="meta">
+        <span data-i18n="hero.meta1">Module 2 of 5</span>
+        <span data-i18n="hero.meta2">2 subsections · 1 activity</span>
+        <span data-i18n="hero.meta3">~7 min read</span>
+      </div>
+      <p class="lede" data-i18n="hero.lede">Between classes and deadlines, food often becomes an afterthought. This module looks at simple ways to eat well and stay hydrated without needing extra time you don't have.</p>
+    </div>
+  </section>
+
+  <div class="content">
+    <article class="subsection">
+      <div>
+        <span class="sub-tag" data-i18n="s1.tag">Subsection 1</span>
+        <h2 data-i18n="s1.title">Balanced Nutrition</h2>
+        <p data-i18n="s1.p1">A balanced meal doesn't require complicated recipes — combining a protein source, whole grains, vegetables or fruit, and some healthy fat covers most nutritional needs.</p>
+        <p data-i18n="s1.p2">Skipping meals to keep studying often backfires: blood sugar dips can bring on fatigue and difficulty concentrating within a couple of hours.</p>
+        <p data-i18n="s1.p3">Keeping a few easy, ready-to-eat options on hand — fruit, nuts, yogurt — helps avoid relying only on vending machines between classes.</p>
+        <p class="source" data-i18n="s1.source">Source: institutional nutrition and student-health references (see full citations in-app).</p>
+      </div>
+      <div class="sub-media" aria-hidden="true">
+        <div class="cap">
+          <svg width="120" height="80" viewBox="0 0 120 80" fill="none">
+            <circle cx="60" cy="40" r="30" fill="#F4FAFD" stroke="#C3DBEC"/>
+            <path d="M60 10a30 30 0 0 1 26 45" stroke="#5B8FBF" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <path d="M60 10a30 30 0 0 0 -19 53" stroke="#E8C9A3" stroke-width="4" fill="none" stroke-linecap="round"/>
+          </svg>
+          <p class="cap-text" data-i18n="s1.mediacap">Illustration: balanced plate proportions</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="subsection reverse">
+      <div>
+        <span class="sub-tag" data-i18n="s2.tag">Subsection 2</span>
+        <h2 data-i18n="s2.title">Hydration</h2>
+        <p data-i18n="s2.p1">Even mild dehydration — before you feel thirsty — can measurably reduce concentration and short-term memory during study sessions.</p>
+        <p data-i18n="s2.p2">Carrying a reusable bottle and refilling it between classes is a simple habit that adds up over a full day on campus.</p>
+        <p class="source" data-i18n="s2.source">Source: institutional nutrition and student-health references (see full citations in-app).</p>
+
+        <div class="activity">
+          <h3><span class="dot" aria-hidden="true"></span> <span data-i18n="s2.activity_title">Build a balanced plate</span></h3>
+          <p class="prompt" data-i18n="s2.activity_prompt">Tap each food group to reveal a quick, practical tip for fitting it into a busy student day.</p>
+          <div class="card-grid" id="foodCards">
+            <div class="food-card" data-card="protein">
+              <div class="emoji">🥚</div>
+              <div class="name" data-i18n="card.protein.name">Protein</div>
+              <div class="tip" data-i18n="card.protein.tip">Eggs, beans, yogurt or canned tuna are fast, no-cook options between classes.</div>
+            </div>
+            <div class="food-card" data-card="grains">
+              <div class="emoji">🌾</div>
+              <div class="name" data-i18n="card.grains.name">Whole grains</div>
+              <div class="tip" data-i18n="card.grains.tip">Oats, whole-grain bread or brown rice provide steadier energy than refined carbs.</div>
+            </div>
+            <div class="food-card" data-card="produce">
+              <div class="emoji">🥦</div>
+              <div class="name" data-i18n="card.produce.name">Fruit &amp; veg</div>
+              <div class="tip" data-i18n="card.produce.tip">Pre-cut vegetables or whole fruit travel well in a backpack for a study break.</div>
+            </div>
+            <div class="food-card" data-card="water">
+              <div class="emoji">💧</div>
+              <div class="name" data-i18n="card.water.name">Water</div>
+              <div class="tip" data-i18n="card.water.tip">A refillable bottle at your desk makes sipping through a lecture effortless.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sub-media" aria-hidden="true">
+        <div class="cap">
+          <svg width="120" height="80" viewBox="0 0 120 80" fill="none">
+            <path d="M50 12h20l6 20a24 24 0 1 1 -32 0Z" fill="#E4F0FA" stroke="#5B8FBF" stroke-width="2"/>
+            <path d="M50 50c4 4 16 4 20 0" stroke="#3D6690" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <p class="cap-text" data-i18n="s2.mediacap">Illustration: staying hydrated through the day</p>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <nav class="module-pager" aria-label="Module navigation">
+    <a href="sleep.html" class="pager-link">
+      <span class="label" data-i18n="pager.prev_label">← Previous module</span>
+      <span class="name" data-i18n="pager.prev_name">Sleep</span>
+    </a>
+    <a href="physical-activity.html" class="pager-link next">
+      <span class="label" data-i18n="pager.next_label">Next module</span>
+      <span class="name" data-i18n="pager.next_name">Physical Activity →</span>
+    </a>
+  </nav>
+</main>
+
+<footer class="site" data-i18n="footer.note">HealthyU — an educational resource, not a medical service.</footer>
+
+<script>
+  const dict = {
+    en: {
+      "nav.modules":"Modules","nav.checkup":"Check-Up","nav.about":"About",
+      "crumb.home":"HealthyU","crumb.modules":"Modules","crumb.current":"Nutrition",
+      "hero.title":"Nutrition",
+      "hero.meta1":"Module 2 of 5","hero.meta2":"2 subsections · 1 activity","hero.meta3":"~7 min read",
+      "hero.lede":"Between classes and deadlines, food often becomes an afterthought. This module looks at simple ways to eat well and stay hydrated without needing extra time you don't have.",
+      "s1.tag":"Subsection 1","s1.title":"Balanced Nutrition",
+      "s1.p1":"A balanced meal doesn't require complicated recipes — combining a protein source, whole grains, vegetables or fruit, and some healthy fat covers most nutritional needs.",
+      "s1.p2":"Skipping meals to keep studying often backfires: blood sugar dips can bring on fatigue and difficulty concentrating within a couple of hours.",
+      "s1.p3":"Keeping a few easy, ready-to-eat options on hand — fruit, nuts, yogurt — helps avoid relying only on vending machines between classes.",
+      "s1.source":"Source: institutional nutrition and student-health references (see full citations in-app).",
+      "s1.mediacap":"Illustration: balanced plate proportions",
+      "s2.tag":"Subsection 2","s2.title":"Hydration",
+      "s2.p1":"Even mild dehydration — before you feel thirsty — can measurably reduce concentration and short-term memory during study sessions.",
+      "s2.p2":"Carrying a reusable bottle and refilling it between classes is a simple habit that adds up over a full day on campus.",
+      "s2.source":"Source: institutional nutrition and student-health references (see full citations in-app).",
+      "s2.activity_title":"Build a balanced plate",
+      "s2.activity_prompt":"Tap each food group to reveal a quick, practical tip for fitting it into a busy student day.",
+      "s2.mediacap":"Illustration: staying hydrated through the day",
+      "card.protein.name":"Protein","card.protein.tip":"Eggs, beans, yogurt or canned tuna are fast, no-cook options between classes.",
+      "card.grains.name":"Whole grains","card.grains.tip":"Oats, whole-grain bread or brown rice provide steadier energy than refined carbs.",
+      "card.produce.name":"Fruit & veg","card.produce.tip":"Pre-cut vegetables or whole fruit travel well in a backpack for a study break.",
+      "card.water.name":"Water","card.water.tip":"A refillable bottle at your desk makes sipping through a lecture effortless.",
+      "pager.prev_label":"← Previous module","pager.prev_name":"Sleep",
+      "pager.next_label":"Next module","pager.next_name":"Physical Activity →",
+      "footer.note":"HealthyU — an educational resource, not a medical service."
+    },
+    es: {
+      "nav.modules":"Módulos","nav.checkup":"Autoevaluación","nav.about":"Acerca de",
+      "crumb.home":"HealthyU","crumb.modules":"Módulos","crumb.current":"Nutrición",
+      "hero.title":"Nutrición",
+      "hero.meta1":"Módulo 2 de 5","hero.meta2":"2 subsecciones · 1 actividad","hero.meta3":"~7 min de lectura",
+      "hero.lede":"Entre clases y entregas, la comida suele quedar en segundo plano. Este módulo explora formas simples de comer bien y mantenerte hidratado sin necesitar tiempo extra que no tienes.",
+      "s1.tag":"Subsección 1","s1.title":"Alimentación balanceada",
+      "s1.p1":"Una comida balanceada no requiere recetas complicadas — combinar una fuente de proteína, granos integrales, vegetales o fruta, y algo de grasa saludable cubre la mayoría de las necesidades nutricionales.",
+      "s1.p2":"Saltarse comidas para seguir estudiando suele ser contraproducente: las bajadas de glucosa pueden traer fatiga y dificultad para concentrarse en un par de horas.",
+      "s1.p3":"Tener a la mano opciones fáciles y listas para comer — fruta, frutos secos, yogur — ayuda a no depender solo de las máquinas expendedoras entre clases.",
+      "s1.source":"Fuente: referencias institucionales de nutrición y salud estudiantil (ver citas completas en la app).",
+      "s1.mediacap":"Ilustración: proporciones de un plato balanceado",
+      "s2.tag":"Subsección 2","s2.title":"Hidratación",
+      "s2.p1":"Incluso una deshidratación leve — antes de sentir sed — puede reducir de forma medible la concentración y la memoria a corto plazo durante el estudio.",
+      "s2.p2":"Llevar una botella reutilizable y rellenarla entre clases es un hábito simple que suma a lo largo de un día completo en el campus.",
+      "s2.source":"Fuente: referencias institucionales de nutrición y salud estudiantil (ver citas completas en la app).",
+      "s2.activity_title":"Arma un plato balanceado",
+      "s2.activity_prompt":"Toca cada grupo de alimentos para revelar un consejo rápido y práctico para incluirlo en un día universitario ocupado.",
+      "s2.mediacap":"Ilustración: mantenerse hidratado durante el día",
+      "card.protein.name":"Proteína","card.protein.tip":"Huevos, fríjoles, yogur o atún en lata son opciones rápidas y sin cocción entre clases.",
+      "card.grains.name":"Granos integrales","card.grains.tip":"Avena, pan integral o arroz integral dan energía más estable que los carbohidratos refinados.",
+      "card.produce.name":"Fruta y verdura","card.produce.tip":"Vegetales precortados o fruta entera se transportan bien en la mochila para una pausa de estudio.",
+      "card.water.name":"Agua","card.water.tip":"Una botella recargable en tu escritorio hace que tomar agua durante la clase sea sin esfuerzo.",
+      "pager.prev_label":"← Módulo anterior","pager.prev_name":"Sueño",
+      "pager.next_label":"Siguiente módulo","pager.next_name":"Actividad Física →",
+      "footer.note":"HealthyU — un recurso educativo, no un servicio médico."
+    }
+  };
+
+  let currentLang = 'en';
+  function applyLang(lang){
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    document.documentElement.dataset.lang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(el=>{
+      const key = el.getAttribute('data-i18n');
+      if(dict[lang][key]) el.textContent = dict[lang][key];
+    });
+    document.querySelectorAll('.lang-toggle button').forEach(btn=>{
+      btn.classList.toggle('active', btn.dataset.setLang === lang);
+    });
+  }
+  document.querySelectorAll('[data-set-lang]').forEach(btn=>{
+    btn.addEventListener('click', () => applyLang(btn.dataset.setLang));
+  });
+
+  document.querySelectorAll('.food-card').forEach(card=>{
+    card.addEventListener('click', () => card.classList.toggle('open'));
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HealthyU — Mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #EEF6FC;
+    --panel: #DCEBF7;
+    --panel-soft: #F4FAFD;
+    --primary: #5B8FBF;
+    --primary-deep: #3D6690;
+    --text: #2C3E50;
+    --text-muted: #6B85A0;
+    --warm: #E8C9A3;
+    --warm-deep: #C99A5F;
+    --white: #FFFFFF;
+    --line: #C3DBEC;
+  }
+
+  *{ box-sizing: border-box; margin:0; padding:0; }
+
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, .display{
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+
+  a{ color: inherit; text-decoration: none; }
+
+  img, svg{ display:block; max-width:100%; }
+
+  /* ---------- Skip link for a11y ---------- */
+  .skip-link{
+    position:absolute; left:-999px; top:0;
+    background:var(--primary-deep); color:#fff; padding:10px 16px; border-radius:0 0 8px 0; z-index:100;
+  }
+  .skip-link:focus{ left:0; }
+
+  a:focus-visible, button:focus-visible{
+    outline: 3px solid var(--warm-deep);
+    outline-offset: 3px;
+  }
+
+  /* ---------- Header ---------- */
+  header{
+    display:flex; align-items:center; justify-content:space-between;
+    max-width: 1180px; margin:0 auto;
+    padding: 28px 32px 8px;
+  }
+
+  .logo{
+    display:flex; align-items:center; gap:10px;
+    font-family:'Space Grotesk'; font-weight:700; font-size:1.15rem; color: var(--primary-deep);
+  }
+  .logo .mark{
+    width:30px; height:30px; border-radius: 50% 50% 50% 6px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-deep));
+  }
+
+  nav{ display:flex; align-items:center; gap: 28px; }
+  nav ul{ list-style:none; display:flex; gap:24px; }
+  nav a{
+    font-size:0.94rem; font-weight:500; color: var(--text-muted);
+    padding-bottom: 4px; border-bottom: 2px solid transparent;
+    transition: color .15s, border-color .15s;
+  }
+  nav a:hover{ color: var(--primary-deep); border-color: var(--primary); }
+
+  .lang-toggle{
+    display:flex; border:1.5px solid var(--line); border-radius: 999px; overflow:hidden;
+    background: var(--white);
+  }
+  .lang-toggle button{
+    border:none; background:transparent; cursor:pointer;
+    font-family:'Inter'; font-weight:600; font-size:0.82rem;
+    padding: 7px 15px; color: var(--text-muted);
+    transition: background .15s, color .15s;
+  }
+  .lang-toggle button.active{
+    background: var(--primary-deep); color:#fff;
+  }
+
+  @media (max-width: 760px){
+    nav ul{ display:none; }
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    max-width: 1180px; margin: 0 auto;
+    padding: 56px 32px 40px;
+    display:grid; grid-template-columns: 1.05fr 0.85fr; gap: 48px; align-items:center;
+  }
+  @media (max-width: 860px){
+    .hero{ grid-template-columns: 1fr; padding-top: 24px; }
+  }
+
+  .eyebrow-note{
+    font-size: 0.92rem; color: var(--primary-deep); font-weight:600; margin-bottom: 14px;
+  }
+
+  .hero h1{
+    font-size: clamp(2.1rem, 4.2vw, 3.1rem);
+    line-height: 1.12;
+    max-width: 15ch;
+  }
+
+  .hero p.lede{
+    margin-top: 18px; font-size: 1.08rem; color: var(--text-muted); max-width: 46ch;
+  }
+
+  .hero-actions{ margin-top: 30px; display:flex; gap:14px; flex-wrap:wrap; }
+
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding: 13px 24px; border-radius: 10px;
+    font-weight:600; font-size:0.96rem; cursor:pointer; border:none;
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover{ transform: translateY(-1px); }
+  .btn-primary{
+    background: var(--primary-deep); color:#fff;
+    box-shadow: 0 8px 20px -8px rgba(61,102,144,0.55);
+  }
+  .btn-ghost{
+    background: transparent; color: var(--primary-deep); border: 1.5px solid var(--line);
+  }
+  .btn-ghost:hover{ border-color: var(--primary); }
+
+  /* hero visual: soft layered cloud shapes referencing sleep/calm */
+  .hero-visual{ position:relative; height: 320px; }
+  .cloud{
+    position:absolute; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #ffffff, var(--panel) 70%);
+  }
+  .cloud.c1{ width:220px; height:220px; top:10px; right: 40px; opacity:.9; }
+  .cloud.c2{ width:150px; height:150px; top: 120px; right: 190px; background: radial-gradient(circle at 35% 30%, #fff, #EAF3FA 70%); }
+  .cloud.c3{ width:90px; height:90px; top: 40px; right: 210px; background: var(--warm); opacity:.55; }
+  .hero-badge{
+    position:absolute; bottom: 18px; left: 6px;
+    background: var(--white); border-radius: 14px; padding: 14px 18px;
+    box-shadow: 0 14px 30px -14px rgba(44,62,80,0.25);
+    display:flex; align-items:center; gap:12px; max-width: 230px;
+  }
+  .hero-badge .num{ font-family:'Space Grotesk'; font-size:1.6rem; font-weight:700; color:var(--primary-deep); }
+  .hero-badge .cap{ font-size: 0.78rem; color: var(--text-muted); line-height:1.3; }
+
+  /* ---------- Journey / modules section ---------- */
+  .journey{ max-width: 1180px; margin: 20px auto 0; padding: 60px 32px 20px; position:relative; }
+
+  .journey-head{ max-width: 60ch; margin-bottom: 54px; }
+  .journey-head h2{ font-size: clamp(1.6rem, 3vw, 2.1rem); }
+  .journey-head p{ color: var(--text-muted); margin-top: 12px; font-size: 1.02rem; }
+
+  .path-wrap{ position:relative; }
+
+  .path-svg{ position:absolute; inset:0; width:100%; height:100%; z-index:0; }
+
+  .modules{
+    position:relative; z-index:1;
+    display:flex; flex-direction:column; gap: 0;
+  }
+
+  .module-row{
+    display:flex; align-items:center; gap: 26px;
+    padding: 18px 0;
+  }
+  .module-row:nth-child(even){ justify-content:flex-end; }
+  .module-row:nth-child(even) .module-card{ order:2; }
+  .module-row:nth-child(even) .module-index{ order:1; }
+
+  .module-index{
+    width: 54px; height:54px; border-radius: 50%;
+    background: var(--white); border: 1.5px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Space Grotesk'; font-weight:600; color: var(--primary-deep);
+    flex-shrink:0;
+  }
+
+  .module-card{
+    background: var(--white);
+    border-radius: 18px;
+    padding: 22px 26px;
+    max-width: 480px;
+    width:100%;
+    display:flex; gap:18px; align-items:flex-start;
+    box-shadow: 0 10px 26px -18px rgba(44,62,80,0.35);
+  }
+  .module-row:nth-child(odd) .module-card{ border-top-left-radius: 6px; }
+  .module-row:nth-child(even) .module-card{ border-top-right-radius: 6px; }
+
+  .module-icon{
+    width: 46px; height:46px; border-radius: 12px;
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+
+  .module-card h3{ font-size: 1.08rem; margin-bottom: 6px; }
+  .module-card .subs{ font-size: 0.88rem; color: var(--text-muted); }
+  .module-card .subs span{ display:block; }
+
+  @media (max-width: 700px){
+    .module-row, .module-row:nth-child(even){ justify-content:flex-start !important; flex-direction:column; align-items:flex-start; }
+    .module-row:nth-child(even) .module-card{ order:0; }
+    .module-row:nth-child(even) .module-index{ order:0; }
+    .path-svg{ display:none; }
+  }
+
+  /* ---------- Check-up CTA ---------- */
+  .checkup{
+    max-width: 1180px; margin: 70px auto 0; padding: 0 32px;
+  }
+  .checkup-inner{
+    background: linear-gradient(120deg, var(--primary-deep), #4E7FAC);
+    border-radius: 24px;
+    padding: 46px 40px;
+    display:grid; grid-template-columns: 1.3fr 0.9fr; gap: 30px; align-items:center;
+    color: #F3F8FC;
+    position:relative; overflow:hidden;
+  }
+  .checkup-inner::after{
+    content:""; position:absolute; width:220px; height:220px; border-radius:50%;
+    background: var(--warm); opacity:.18; right:-60px; top:-60px;
+  }
+  .checkup-inner h2{ color:#fff; font-size: clamp(1.4rem, 2.6vw, 1.9rem); max-width: 22ch; }
+  .checkup-inner p{ margin-top:10px; color: #D9E9F5; max-width: 42ch; }
+  .checkup-cta{ display:flex; justify-content:flex-start; }
+  @media (max-width: 760px){ .checkup-inner{ grid-template-columns: 1fr; } }
+
+  .btn-warm{
+    background: var(--warm); color: #4A3418;
+    box-shadow: 0 10px 24px -10px rgba(232,201,163,0.7);
+  }
+
+  /* ---------- Footer ---------- */
+  footer{
+    max-width: 1180px; margin: 70px auto 0; padding: 30px 32px 44px;
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;
+    border-top: 1px solid var(--line);
+    color: var(--text-muted); font-size: 0.86rem;
+  }
+
+  [data-i18n]{ }
+  [lang-hide]{ display:none; }
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to content</a>
+
+<header>
+  <div class="logo">
+    <span class="mark" aria-hidden="true"></span>
+    HealthyU
+  </div>
+  <nav aria-label="Primary">
+    <ul>
+      <li><a href="#" data-i18n="nav.modules">Modules</a></li>
+      <li><a href="#" data-i18n="nav.checkup">Check-Up</a></li>
+      <li><a href="#" data-i18n="nav.about">About</a></li>
+    </ul>
+  </nav>
+  <div class="lang-toggle" role="group" aria-label="Language selector">
+    <button type="button" data-set-lang="en" class="active">EN</button>
+    <button type="button" data-set-lang="es">ES</button>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero">
+    <div>
+      <p class="eyebrow-note" data-i18n="hero.eyebrow">For university students</p>
+      <h1 data-i18n="hero.title">Small habits, better academic performance</h1>
+      <p class="lede" data-i18n="hero.lede">
+        HealthyU is a bilingual multimedia guide to sleep, nutrition, movement, mental
+        well-being and digital balance — built around university life, not medical advice.
+      </p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" type="button" data-i18n="hero.cta_primary">Start the Check-Up</button>
+        <button class="btn btn-ghost" type="button" data-i18n="hero.cta_secondary">Browse the modules</button>
+      </div>
+    </div>
+    <div class="hero-visual" aria-hidden="true">
+      <div class="cloud c1"></div>
+      <div class="cloud c2"></div>
+      <div class="cloud c3"></div>
+      <div class="hero-badge">
+        <span class="num">5</span>
+        <span class="cap" data-i18n="hero.badge">thematic modules, two lessons each</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="journey">
+    <div class="journey-head">
+      <h2 data-i18n="journey.title">A path through five habits</h2>
+      <p data-i18n="journey.lede">Each module pairs short, source-backed reading with a hands-on activity — quizzes, sliders and clickable cards.</p>
+    </div>
+
+    <div class="path-wrap">
+      <svg class="path-svg" viewBox="0 0 1000 900" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M60,60 C 400,60 200,220 620,220 S 300,420 700,420 S 260,600 660,600 S 320,780 700,780"
+              fill="none" stroke="#C3DBEC" stroke-width="2.5" stroke-dasharray="1 10" stroke-linecap="round"/>
+      </svg>
+
+      <div class="modules">
+        <div class="module-row">
+          <div class="module-index">01</div>
+          <a href="modules/sleep.html" class="module-card">
+            <div class="module-icon" style="background:#E4F0FA;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z" stroke="#3D6690" stroke-width="1.6" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <h3 data-i18n="m1.title">Sleep</h3>
+              <div class="subs">
+                <span data-i18n="m1.s1">Why Sleep Matters</span>
+                <span data-i18n="m1.s2">Healthy Sleep Routine</span>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="module-row">
+          <div class="module-index">02</div>
+          <a href="modules/nutrition.html" class="module-card">
+            <div class="module-icon" style="background:#EAF3E9;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 3c2 3-1 4-1 7a4 4 0 0 0 8 0c0-2-1-3-2-4" stroke="#3D6690" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 21c0-5 3-8 3-8" stroke="#3D6690" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <h3 data-i18n="m2.title">Nutrition</h3>
+              <div class="subs">
+                <span data-i18n="m2.s1">Balanced Nutrition</span>
+                <span data-i18n="m2.s2">Hydration</span>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="module-row">
+          <div class="module-index">03</div>
+          <a href="modules/physical-activity.html" class="module-card">
+            <div class="module-icon" style="background:#FBF0E3;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="5" r="2" stroke="#3D6690" stroke-width="1.6"/><path d="M12 9v6m0 0-4 6m4-6 4 6M8 12l4 1 4-1" stroke="#3D6690" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <h3 data-i18n="m3.title">Physical Activity</h3>
+              <div class="subs">
+                <span data-i18n="m3.s1">Daily Movement</span>
+                <span data-i18n="m3.s2">Active Study Breaks</span>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="module-row">
+          <div class="module-index">04</div>
+          <a href="modules/mental-wellbeing.html" class="module-card">
+            <div class="module-icon" style="background:#F1E7F5;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 21c-4-3-8-6.5-8-11a5 5 0 0 1 8-4 5 5 0 0 1 8 4c0 4.5-4 8-8 11Z" stroke="#3D6690" stroke-width="1.6" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <h3 data-i18n="m4.title">Mental Well-being</h3>
+              <div class="subs">
+                <span data-i18n="m4.s1">Academic Stress</span>
+                <span data-i18n="m4.s2">Relaxation Techniques</span>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="module-row">
+          <div class="module-index">05</div>
+          <a href="modules/digital-wellbeing.html" class="module-card">
+            <div class="module-icon" style="background:#E4F0FA;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="12" rx="2" stroke="#3D6690" stroke-width="1.6"/><path d="M9 20h6M12 16v4" stroke="#3D6690" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <h3 data-i18n="m5.title">Digital Well-being</h3>
+              <div class="subs">
+                <span data-i18n="m5.s1">Screen Time</span>
+                <span data-i18n="m5.s2">Digital Disconnection</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="checkup">
+    <div class="checkup-inner">
+      <div>
+        <h2 data-i18n="checkup.title">See where your habits stand today</h2>
+        <p data-i18n="checkup.lede">A short, non-medical self-check that reflects your routines back to you — with pointers to the modules that fit.</p>
+      </div>
+      <div class="checkup-cta">
+        <button class="btn btn-warm" type="button" data-i18n="checkup.cta">Take the Check-Up</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span data-i18n="footer.note">HealthyU — an educational resource, not a medical service.</span>
+    <span data-i18n="footer.lang">English / Español</span>
+  </footer>
+</main>
+
+<script>
+  const dict = {
+    en: {
+      "nav.modules": "Modules", "nav.checkup": "Check-Up", "nav.about": "About",
+      "hero.eyebrow": "For university students",
+      "hero.title": "Small habits, better academic performance",
+      "hero.lede": "HealthyU is a bilingual multimedia guide to sleep, nutrition, movement, mental well-being and digital balance — built around university life, not medical advice.",
+      "hero.cta_primary": "Start the Check-Up",
+      "hero.cta_secondary": "Browse the modules",
+      "hero.badge": "thematic modules, two lessons each",
+      "journey.title": "A path through five habits",
+      "journey.lede": "Each module pairs short, source-backed reading with a hands-on activity — quizzes, sliders and clickable cards.",
+      "m1.title": "Sleep", "m1.s1": "Why Sleep Matters", "m1.s2": "Healthy Sleep Routine",
+      "m2.title": "Nutrition", "m2.s1": "Balanced Nutrition", "m2.s2": "Hydration",
+      "m3.title": "Physical Activity", "m3.s1": "Daily Movement", "m3.s2": "Active Study Breaks",
+      "m4.title": "Mental Well-being", "m4.s1": "Academic Stress", "m4.s2": "Relaxation Techniques",
+      "m5.title": "Digital Well-being", "m5.s1": "Screen Time", "m5.s2": "Digital Disconnection",
+      "checkup.title": "See where your habits stand today",
+      "checkup.lede": "A short, non-medical self-check that reflects your routines back to you — with pointers to the modules that fit.",
+      "checkup.cta": "Take the Check-Up",
+      "footer.note": "HealthyU — an educational resource, not a medical service.",
+      "footer.lang": "English / Español"
+    },
+    es: {
+      "nav.modules": "Módulos", "nav.checkup": "Autoevaluación", "nav.about": "Acerca de",
+      "hero.eyebrow": "Para estudiantes universitarios",
+      "hero.title": "Pequeños hábitos, mejor rendimiento académico",
+      "hero.lede": "HealthyU es una guía multimedia bilingüe sobre sueño, nutrición, movimiento, bienestar mental y equilibrio digital — pensada para la vida universitaria, no como asesoría médica.",
+      "hero.cta_primary": "Iniciar la autoevaluación",
+      "hero.cta_secondary": "Explorar los módulos",
+      "hero.badge": "módulos temáticos, dos lecciones cada uno",
+      "journey.title": "Un recorrido por cinco hábitos",
+      "journey.lede": "Cada módulo combina lectura breve y respaldada por fuentes con una actividad práctica — quizzes, sliders y tarjetas interactivas.",
+      "m1.title": "Sueño", "m1.s1": "Por qué importa el sueño", "m1.s2": "Rutina de sueño saludable",
+      "m2.title": "Nutrición", "m2.s1": "Alimentación balanceada", "m2.s2": "Hidratación",
+      "m3.title": "Actividad Física", "m3.s1": "Movimiento diario", "m3.s2": "Pausas activas de estudio",
+      "m4.title": "Bienestar Mental", "m4.s1": "Estrés académico", "m4.s2": "Técnicas de relajación",
+      "m5.title": "Bienestar Digital", "m5.s1": "Tiempo en pantalla", "m5.s2": "Desconexión digital",
+      "checkup.title": "Descubre cómo están tus hábitos hoy",
+      "checkup.lede": "Una breve autoevaluación no médica que refleja tus rutinas y te guía hacia los módulos que más te sirven.",
+      "checkup.cta": "Hacer la autoevaluación",
+      "footer.note": "HealthyU — un recurso educativo, no un servicio médico.",
+      "footer.lang": "English / Español"
+    }
+  };
+
+  function applyLang(lang){
+    document.documentElement.lang = lang;
+    document.documentElement.dataset.lang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if(dict[lang][key]) el.textContent = dict[lang][key];
+    });
+    document.querySelectorAll('.lang-toggle button').forEach(btn=>{
+      btn.classList.toggle('active', btn.dataset.setLang === lang);
+    });
+  }
+
+  document.querySelectorAll('[data-set-lang]').forEach(btn=>{
+    btn.addEventListener('click', () => applyLang(btn.dataset.setLang));
+  });
+</script>
+
+</body>
+</html>
