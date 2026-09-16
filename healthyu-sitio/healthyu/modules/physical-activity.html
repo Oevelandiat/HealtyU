@@ -69,6 +69,9 @@
   .quiz-feedback.show{ display:block; }
   .quiz-feedback.good{ background:#EAF3E9; color:#3F5E4C; border:1px solid #CFE4CE; }
   .quiz-feedback.bad{ background:#FBEAE7; color:#7A3E33; border:1px solid #F1C9C0; }
+  .quiz-question{ margin-bottom:22px; }
+  .quiz-question:last-of-type{ margin-bottom:0; }
+  .quiz-question-text{ font-weight:600; margin-bottom:10px; color:var(--text); font-size:0.95rem; }
   .module-pager{ max-width:1080px; margin:70px auto 0; padding:26px 32px 44px; border-top:1px solid var(--line); display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap; }
   .pager-link{ display:flex; flex-direction:column; gap:4px; max-width:260px; }
   .pager-link .label{ font-size:0.78rem; color:var(--text-muted); }
@@ -146,13 +149,36 @@
         <p class="source" data-i18n="s2.source">Source: institutional physical-activity guidelines (see full citations in-app).</p>
 
         <div class="activity">
-          <h3><span class="dot" aria-hidden="true"></span> <span data-i18n="s2.activity_title">Quick quiz: spotting a good active break</span></h3>
-          <p class="prompt" data-i18n="s2.activity_prompt">Which of these best fits as an active break between two 45-minute study blocks?</p>
-          <div class="quiz-options" id="quizOptions">
-            <button class="quiz-option" data-correct="false" data-i18n="q.opt1">Scrolling social media for 10 minutes</button>
-            <button class="quiz-option" data-correct="true" data-i18n="q.opt2">A 3-minute stretch and short walk around the room</button>
-            <button class="quiz-option" data-correct="false" data-i18n="q.opt3">Starting a new episode of a show</button>
+          <h3><span class="dot" aria-hidden="true"></span> <span data-i18n="s2.activity_title">Quick quiz: what did you learn?</span></h3>
+          <p class="prompt" data-i18n="s2.activity_prompt">Answer all 3 questions. Get at least 2 right to pass.</p>
+
+          <div class="quiz-question" data-answered="false">
+            <p class="quiz-question-text" data-i18n="q1.text">1. Which of these best fits as an active break between two 45-minute study blocks?</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-correct="false" data-i18n="q1.opt1">Scrolling social media for 10 minutes</button>
+              <button class="quiz-option" data-correct="true" data-i18n="q1.opt2">A 3-minute stretch and short walk around the room</button>
+              <button class="quiz-option" data-correct="false" data-i18n="q1.opt3">Starting a new episode of a show</button>
+            </div>
           </div>
+
+          <div class="quiz-question" data-answered="false">
+            <p class="quiz-question-text" data-i18n="q2.text">2. How many minutes of moderate activity per week do health guidelines generally recommend?</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-correct="false" data-i18n="q2.opt1">About 30 minutes total</button>
+              <button class="quiz-option" data-correct="true" data-i18n="q2.opt2">About 150 minutes</button>
+              <button class="quiz-option" data-correct="false" data-i18n="q2.opt3">About 500 minutes</button>
+            </div>
+          </div>
+
+          <div class="quiz-question" data-answered="false">
+            <p class="quiz-question-text" data-i18n="q3.text">3. What is extended sitting linked to, according to this module?</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-correct="false" data-i18n="q3.opt1">Improved focus</button>
+              <button class="quiz-option" data-correct="true" data-i18n="q3.opt2">Stiffness and reduced focus</button>
+              <button class="quiz-option" data-correct="false" data-i18n="q3.opt3">A faster metabolism</button>
+            </div>
+          </div>
+
           <div class="quiz-feedback" id="quizFeedback"></div>
         </div>
       </div>
@@ -201,14 +227,23 @@
       "s2.p1":"A short break every 45–60 minutes of focused study — even just two or three minutes of movement — helps sustain concentration for the next block.",
       "s2.p2":"Stretching, a quick walk around the room, or a few bodyweight movements are enough; the goal is interrupting sitting, not fitting in a workout.",
       "s2.source":"Source: institutional physical-activity guidelines (see full citations in-app).",
-      "s2.activity_title":"Quick quiz: spotting a good active break",
-      "s2.activity_prompt":"Which of these best fits as an active break between two 45-minute study blocks?",
+      "s2.activity_title":"Quick quiz: what did you learn?",
+      "s2.activity_prompt":"Answer all 3 questions. Get at least 2 right to pass.",
       "s2.mediacap":"Illustration: a short movement break",
-      "q.opt1":"Scrolling social media for 10 minutes",
-      "q.opt2":"A 3-minute stretch and short walk around the room",
-      "q.opt3":"Starting a new episode of a show",
-      "q.feedback_correct":"Right — brief movement resets focus without eating into your next study block.",
-      "q.feedback_incorrect":"Not quite — that's still screen time. A short stretch or walk is what actually breaks up the sitting.",
+      "q1.text":"1. Which of these best fits as an active break between two 45-minute study blocks?",
+      "q1.opt1":"Scrolling social media for 10 minutes",
+      "q1.opt2":"A 3-minute stretch and short walk around the room",
+      "q1.opt3":"Starting a new episode of a show",
+      "q2.text":"2. How many minutes of moderate activity per week do health guidelines generally recommend?",
+      "q2.opt1":"About 30 minutes total",
+      "q2.opt2":"About 150 minutes",
+      "q2.opt3":"About 500 minutes",
+      "q3.text":"3. What is extended sitting linked to, according to this module?",
+      "q3.opt1":"Improved focus",
+      "q3.opt2":"Stiffness and reduced focus",
+      "q3.opt3":"A faster metabolism",
+      "quiz.pass":"You got it!",
+      "quiz.fail":"You lost — give it another look and try again.",
       "pager.prev_label":"← Previous module","pager.prev_name":"Nutrition",
       "pager.next_label":"Next module","pager.next_name":"Mental Well-being →",
       "footer.note":"HealthyU — an educational resource, not a medical service."
@@ -229,14 +264,23 @@
       "s2.p1":"Una pausa corta cada 45–60 minutos de estudio concentrado — incluso solo dos o tres minutos de movimiento — ayuda a sostener la concentración en el siguiente bloque.",
       "s2.p2":"Estirarse, caminar brevemente por el cuarto o hacer unos pocos movimientos corporales bastan; el objetivo es interrumpir el sedentarismo, no hacer una rutina completa.",
       "s2.source":"Fuente: guías institucionales de actividad física (ver citas completas en la app).",
-      "s2.activity_title":"Quiz rápido: identificar una buena pausa activa",
-      "s2.activity_prompt":"¿Cuál de estas opciones encaja mejor como pausa activa entre dos bloques de estudio de 45 minutos?",
+      "s2.activity_title":"Quiz rápido: ¿qué aprendiste?",
+      "s2.activity_prompt":"Responde las 3 preguntas. Necesitas al menos 2 correctas para pasar.",
       "s2.mediacap":"Ilustración: una pausa breve de movimiento",
-      "q.opt1":"Ver redes sociales durante 10 minutos",
-      "q.opt2":"Un estiramiento de 3 minutos y una caminata corta por el cuarto",
-      "q.opt3":"Empezar un nuevo episodio de una serie",
-      "q.feedback_correct":"Correcto — el movimiento breve reinicia la concentración sin quitarle tiempo a tu siguiente bloque de estudio.",
-      "q.feedback_incorrect":"No exactamente — eso sigue siendo tiempo de pantalla. Un estiramiento o caminata corta es lo que realmente rompe el sedentarismo.",
+      "q1.text":"1. ¿Cuál de estas opciones encaja mejor como pausa activa entre dos bloques de estudio de 45 minutos?",
+      "q1.opt1":"Ver redes sociales durante 10 minutos",
+      "q1.opt2":"Un estiramiento de 3 minutos y una caminata corta por el cuarto",
+      "q1.opt3":"Empezar un nuevo episodio de una serie",
+      "q2.text":"2. ¿Cuántos minutos de actividad moderada por semana recomiendan generalmente las guías de salud?",
+      "q2.opt1":"Cerca de 30 minutos en total",
+      "q2.opt2":"Cerca de 150 minutos",
+      "q2.opt3":"Cerca de 500 minutos",
+      "q3.text":"3. ¿Con qué se asocia estar sentado por periodos largos, según este módulo?",
+      "q3.opt1":"Mejor concentración",
+      "q3.opt2":"Rigidez y menor concentración",
+      "q3.opt3":"Un metabolismo más rápido",
+      "quiz.pass":"¡Lo lograste!",
+      "quiz.fail":"Perdiste — vuelve a repasar el módulo e inténtalo de nuevo.",
       "pager.prev_label":"← Módulo anterior","pager.prev_name":"Nutrición",
       "pager.next_label":"Siguiente módulo","pager.next_name":"Bienestar Mental →",
       "footer.note":"HealthyU — un recurso educativo, no un servicio médico."
@@ -261,13 +305,34 @@
   });
 
   const feedbackEl = document.getElementById('quizFeedback');
-  document.querySelectorAll('.quiz-option').forEach(btn=>{
-    btn.addEventListener('click', () => {
-      const correct = btn.dataset.correct === 'true';
-      document.querySelectorAll('.quiz-option').forEach(b => b.disabled = true);
-      btn.classList.add(correct ? 'correct' : 'incorrect');
-      feedbackEl.textContent = dict[currentLang][correct ? 'q.feedback_correct' : 'q.feedback_incorrect'];
-      feedbackEl.classList.add('show', correct ? 'good' : 'bad');
+  const totalQuestions = document.querySelectorAll('.quiz-question').length;
+  let score = 0;
+  let answeredCount = 0;
+
+  document.querySelectorAll('.quiz-question').forEach(question => {
+    const options = question.querySelectorAll('.quiz-option');
+    options.forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (question.dataset.answered === 'true') return; // esta pregunta ya se respondió
+        question.dataset.answered = 'true';
+        answeredCount++;
+
+        const isCorrect = btn.dataset.correct === 'true';
+        if (isCorrect) score++;
+
+        options.forEach(opt => {
+          opt.disabled = true;
+          if (opt.dataset.correct === 'true') opt.classList.add('correct');
+        });
+        if (!isCorrect) btn.classList.add('incorrect');
+
+        // Solo mostramos el resultado final cuando ya respondió las 3 preguntas
+        if (answeredCount === totalQuestions) {
+          const passed = score >= 2;
+          feedbackEl.textContent = `${dict[currentLang][passed ? 'quiz.pass' : 'quiz.fail']} (${score}/${totalQuestions})`;
+          feedbackEl.classList.add('show', passed ? 'good' : 'bad');
+        }
+      });
     });
   });
 </script>

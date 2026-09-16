@@ -172,6 +172,19 @@
   .feedback.show{ display:block; }
   .feedback.warn{ background:#FBF0E3; color:#6B4E22; border-color:#F0DDBC; }
 
+  /* ---------- Quiz options ---------- */
+  .quiz-options{ display:flex; flex-direction:column; gap:10px; margin-top:6px; }
+  .quiz-option{
+    text-align:left; padding: 13px 16px; border-radius: 10px;
+    border: 1.5px solid var(--line); background: var(--white);
+    font-family:'Inter'; font-size: 0.95rem; color: var(--text);
+    cursor:pointer; transition: border-color .15s, background .15s;
+  }
+  .quiz-option:hover:not(:disabled){ border-color: var(--primary); }
+  .quiz-option:disabled{ cursor: default; }
+  .quiz-option.correct{ background:#EAF3E9; border-color: var(--good); color:#3F5E4C; font-weight:600; }
+  .quiz-option.incorrect{ background:#FBEAEA; border-color:#D98C8C; color:#7A3B3B; }
+
   /* ---------- Sibling module nav ---------- */
   .module-pager{
     max-width: 1080px; margin: 70px auto 0; padding: 26px 32px 44px;
@@ -298,6 +311,18 @@
       </div>
     </article>
 
+    <!-- Quiz activity -->
+    <div class="activity" style="margin-top:56px;">
+      <h3><span class="dot" aria-hidden="true"></span> <span data-i18n="quiz.title">Test what you learned</span></h3>
+      <p class="prompt" data-i18n="quiz.prompt">How many hours of sleep do most adults need each night?</p>
+      <div class="quiz-options" id="sleepQuiz">
+        <button type="button" class="quiz-option" data-correct="false" data-i18n="quiz.opt1">4–5 hours</button>
+        <button type="button" class="quiz-option" data-correct="true" data-i18n="quiz.opt2">7–9 hours</button>
+        <button type="button" class="quiz-option" data-correct="false" data-i18n="quiz.opt3">10–12 hours</button>
+      </div>
+      <div class="feedback" id="quizFeedback"></div>
+    </div>
+
   </div>
 
   <nav class="module-pager" aria-label="Module navigation">
@@ -340,7 +365,14 @@
       "pager.next_label": "Next module", "pager.next_name": "Nutrition →",
       "footer.note": "HealthyU — an educational resource, not a medical service.",
       "feedback.good": "That's a solid window for a consistent routine — the module on relaxation techniques (Module 4) can help you keep it steady during exam weeks.",
-      "feedback.late": "That's on the later side for a class night. Subsection 2's tips on winding down earlier might be worth a look."
+      "feedback.late": "That's on the later side for a class night. Subsection 2's tips on winding down earlier might be worth a look.",
+      "quiz.title": "Test what you learned",
+      "quiz.prompt": "How many hours of sleep do most adults need each night?",
+      "quiz.opt1": "4–5 hours",
+      "quiz.opt2": "7–9 hours",
+      "quiz.opt3": "10–12 hours",
+      "quiz.feedback_correct": "Correct! Most adults need close to 7–9 hours to support memory and focus.",
+      "quiz.feedback_incorrect": "Not quite — most adults need closer to 7–9 hours a night for memory and focus."
     },
     es: {
       "nav.modules": "Módulos", "nav.checkup": "Autoevaluación", "nav.about": "Acerca de",
@@ -366,7 +398,14 @@
       "pager.next_label": "Siguiente módulo", "pager.next_name": "Nutrición →",
       "footer.note": "HealthyU — un recurso educativo, no un servicio médico.",
       "feedback.good": "Es un horario sólido para mantener una rutina constante — el módulo de técnicas de relajación (Módulo 4) puede ayudarte a mantenerlo estable en semanas de exámenes.",
-      "feedback.late": "Es un horario algo tardío para una noche de clases. Los consejos de la Subsección 2 sobre relajarte más temprano pueden servirte."
+      "feedback.late": "Es un horario algo tardío para una noche de clases. Los consejos de la Subsección 2 sobre relajarte más temprano pueden servirte.",
+      "quiz.title": "Pon a prueba lo aprendido",
+      "quiz.prompt": "¿Cuántas horas de sueño necesita la mayoría de los adultos cada noche?",
+      "quiz.opt1": "4–5 horas",
+      "quiz.opt2": "7–9 horas",
+      "quiz.opt3": "10–12 horas",
+      "quiz.feedback_correct": "¡Correcto! La mayoría de los adultos necesita cerca de 7–9 horas para apoyar la memoria y la concentración.",
+      "quiz.feedback_incorrect": "No exactamente — la mayoría de los adultos necesita cerca de 7–9 horas por noche para la memoria y la concentración."
     }
   };
 
@@ -434,6 +473,26 @@
 
   slider.addEventListener('input', () => updateBedtime(false));
   updateBedtime(true);
+
+  // ---- Quiz ----
+  const quizFeedback = document.getElementById('quizFeedback');
+
+  document.querySelectorAll('#sleepQuiz .quiz-option').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const isCorrect = btn.dataset.correct === 'true';
+
+      // Lock every option and reveal which one was correct
+      document.querySelectorAll('#sleepQuiz .quiz-option').forEach(opt => {
+        opt.disabled = true;
+        if (opt.dataset.correct === 'true') opt.classList.add('correct');
+      });
+      if (!isCorrect) btn.classList.add('incorrect');
+
+      quizFeedback.textContent = dict[currentLang][isCorrect ? 'quiz.feedback_correct' : 'quiz.feedback_incorrect'];
+      quizFeedback.classList.add('show');
+      quizFeedback.classList.toggle('warn', !isCorrect);
+    });
+  });
 </script>
 
 </body>
